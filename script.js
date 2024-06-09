@@ -32,3 +32,50 @@ const layout = [
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 ]
+
+const squares = []
+function createBoard(){
+    for (let i = 0; i <layout.length; i++){
+        const square = document.createElement('div')
+        grid.appendChild(square)
+        squares.push(square)
+
+        if(layout[i] === 0){
+            squares[i].classList.add('pac-dot')
+        }
+        if(layout[i] === 1){
+            squares[i].classList.add('wall')
+        }
+        if(layout[i] === 2){
+            squares[i].classList.add('ghost-lair')
+        }
+        if(layout[i] === 3){
+            squares[i].classList.add('power-pellet')
+        }
+
+    }
+}
+createBoard()
+
+let pacmanCurrentIndex = 490
+squares[pacmanCurrentIndex].classList.add('pac-man')
+
+function movePacman(e){
+    squares[pacmanCurrentIndex].classList.remove('pac-man')
+    switch (e.key){
+        case 'ArrowLeft':
+            pacmanCurrentIndex -=1
+            break
+        case 'ArrowRight':
+            pacmanCurrentIndex +=1
+            break
+        case 'ArrowUp':
+            pacmanCurrentIndex -=width
+            break
+        case 'ArrowDown':
+            pacmanCurrentIndex +=width
+            break            
+        }
+        squares[pacmanCurrentIndex].classList.add('pac-man')
+}
+document.addEventListener('keyup', movePacman)
