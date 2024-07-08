@@ -66,11 +66,15 @@ function movePacman(e){
         case 'ArrowLeft':
             if(!squares[pacmanCurrentIndex -1].classList.contains('wall')){
                 pacmanCurrentIndex -=1
+            }else if(pacmanCurrentIndex === 364){
+                pacmanCurrentIndex = 391
             }
             break
         case 'ArrowRight':
             if(!squares[pacmanCurrentIndex +1].classList.contains('wall')){
                 pacmanCurrentIndex +=1
+            }else if(pacmanCurrentIndex === 391){
+                pacmanCurrentIndex = 364
             }
             break
         case 'ArrowUp':
@@ -86,5 +90,23 @@ function movePacman(e){
             break            
         }
         squares[pacmanCurrentIndex].classList.add('pac-man')
+        pacDotEaten()
+        powerPelletEaten()
 }
 document.addEventListener('keydown', movePacman)
+
+function pacDotEaten(){
+    if(squares[pacmanCurrentIndex].classList.contains('pac-dot')){
+        score++
+        scoreDisplay.innerHTML = score
+        squares[pacmanCurrentIndex].classList.remove('pac-dot')
+    }
+}
+
+function powerPelletEaten(){
+    if(squares[pacmanCurrentIndex].classList.contains('power-pellet')){
+        score += 10
+        scoreDisplay.innerHTML = score
+        squares[pacmanCurrentIndex].classList.remove('power-pellet')
+    }
+}
